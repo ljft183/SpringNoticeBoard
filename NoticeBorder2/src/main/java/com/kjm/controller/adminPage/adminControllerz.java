@@ -58,7 +58,7 @@ public class adminControllerz {
 		mav.addObject("lists", listA);
 		mav.addObject("userList", listB);
 		
-		mav.setViewName("/sboard/ap/helloWorld");
+		mav.setViewName("/sboard/ap/adminPage");
 		return mav;		
 	}
 	
