@@ -37,9 +37,9 @@
 ![SignUp3](./NoticeBorder2/src/main/resources/image/SignUp3.PNG)
 
 ### 별도 옵션 설명
-```
-logout.jsp - 로그아웃 시 로그아웃 알림을 호출 후  login 화면 호출
-loginError.jsp - 로그인 실패 시 알림 호출 후 login 화면 호출
-inspectionTime.jsp - Captcha로 인해 생긴 이미지 파일 정리 시간 (11:59:30 ~ 12:02:00) 동안 회원가입 방지 알림 후 login 화면 호출
-```
+
+logout.jsp - 로그아웃 시 로그아웃 알림을 호출 후  login 화면 호출  
+loginError.jsp - 로그인 실패 시 알림 호출 후 login 화면 호출  
+inspectionTime.jsp - Captcha로 인해 생긴 이미지 파일 정리 시간 (11:59:30 ~ 12:02:00) 동안 회원가입 방지 알림 후 login 화면 호출  
+
 
