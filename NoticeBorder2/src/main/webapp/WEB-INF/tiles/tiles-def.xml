@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+<definition name="base-definition" template="/WEB-INF/views/sboard/tiles/layout/baseLayout.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/sboard/tiles/view/header.jsp" />
+	<put-attribute name="menu" value="" />
+	<put-attribute name="body" value="" />
+	<put-attribute name="footer" value="" />
+</definition>
+
+<definition name="base-definition2" template="/WEB-INF/views/sboard/tiles/layout/baseLayout2.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/sboard/tiles/view/header2.jsp" />
+	<put-attribute name="menu" value="" />
+	<put-attribute name="body" value="" />
+	<put-attribute name="footer" value="" />
+</definition>
+
+<definition name="/sboard/up/*" extends="base-definition">
+    <put-attribute name="body" value="/WEB-INF/views/sboard/up/{1}.jsp" />
+</definition>
+
+<definition name="no-menu" template="/WEB-INF/views/sboard/tiles/layout/emptyLayout.jsp">
+   <put-attribute name="body" value="" />
+</definition>
+
+<definition name="/sboard/lp/*" extends="no-menu">
+   <put-attribute name="body" value="/WEB-INF/views/sboard/lp/{1}.jsp" />
+</definition>
+
+<definition name="admin" template="/WEB-INF/views/sboard/tiles/layout/adminLayout.jsp">
+   <put-attribute name="body" value="" />
+</definition>
+
+<definition name="/sboard/ap/*" extends="admin">
+   <put-attribute name="body" value="/WEB-INF/views/sboard/ap/{1}.jsp" />
+</definition>
+
+<definition name="/sboard/up2/*" extends="base-definition2">
+    <put-attribute name="body" value="/WEB-INF/views/sboard/up2/{1}.jsp" />
+</definition>
+
+
+
+</tiles-definitions>
+

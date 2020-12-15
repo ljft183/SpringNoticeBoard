@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kjm.mapper.BoardMapper"> 
+	<insert id="create" > 
+		INSERT INTO notice_board(title, content, writer, regdate)  VALUES(#{title}, #{content}, #{writer}, SYSDATE())
+		<selectKey keyProperty="bno" resultType="int">
+			SELECT LAST_INSERT_ID();
+		</selectKey> 
+	</insert> 
+
+	<select id="read" resultType="com.kjm.vo.BoardVO"> 
+		SELECT * FROM notice_board WHERE bno=#{bno} 
+	</select> 
+	
+	<update id="update"> 
+		UPDATE notice_board SET title=#{title}, writer=#{writer} ,content=#{content} ,regdate=SYSDATE() WHERE bno=#{bno} 
+	</update> 
+
+	<delete id="delete"> 
+		DELETE FROM notice_board WHERE bno=#{bno} 
+	</delete> 
+	
+	<select id="listAll" resultType="com.kjm.vo.BoardVO">
+		SELECT * FROM notice_board order by bno desc, regdate desc
+	</select>
+	
+	<select id="listPage" resultType="com.kjm.vo.BoardVO">
+		SELECT * FROM notice_board order by bno desc limit #{start},10
+	</select>
+	
+	<select id="listCount" resultType="int">
+		SELECT count(*) FROM notice_board
+	</select>
+	<select id="searchListCount" resultType="int">
+		SELECT count(*) FROM notice_board where title like CONCAT('%',#{title},'%')
+	</select>
+	
+	<select id="listSearch" parameterType="hashMap" resultType="com.kjm.vo.BoardVO">
+		SELECT * FROM notice_board where title like CONCAT('%',#{search},'%') order by bno desc, regdate desc limit #{listStart},10
+	</select>
+	<select id="listUserWrite" resultType="com.kjm.vo.BoardVO">
+		select * from notice_board where writer=#{writer}
+	</select>
+	
+	<insert id="commentWrite"> 
+		 INSERT INTO comment_board (bno, commentno, comment, writer, regdate)
+		 VALUES (#{bno}, (SELECT ifnull(MAX(commentno),0) + 1
+    					 from(SELECT * FROM comment_board WHERE bno = #{bno}
+    					 )tmp), #{comment}, #{writer}, sysdate())
+	</insert> 
+	<select id="commentList" resultType="com.kjm.vo.CommentVO">
+		SELECT * FROM comment_board where bno=#{bno} order by commentno desc
+	</select>
+	<delete id="commentDelete">
+		delete from comment_board where bno=#{bno}
+	</delete>
+	<delete id="commentDeleteVO">
+		delete from comment_board where bno=#{bno} and commentno=#{commentno}
+	</delete>
+	
+	
+	<select id="listStart" resultType="int">
+		SELECT MIN(bno) FROM notice_board
+	</select>
+	
+	<select id="listEnd" resultType="int">
+		SELECT MAX(bno) FROM notice_board
+	</select>
+	
+	<select id="prevPage" resultType="int">
+		select bno from notice_board where (bno <![CDATA[ < ]]> #{num}) order by bno desc limit 1
+	</select>	
+	
+	<select id="nextPage" resultType="int">
+		select bno from notice_board where (bno <![CDATA[ > ]]> #{num}) order by bno asc limit 1
+	</select>	
+	
+	<update id="upViewcnt"> 
+		UPDATE notice_board SET viewcnt = (viewcnt+1) WHERE bno=#{bno} 
+	</update> 
+	
+
+	<insert id="signUp"> 
+		INSERT INTO user_board(writer, password, mailaddress, enabled)  VALUES(#{writer}, #{password}, #{mailAddress}, #{enabled}) 
+	</insert> 
+	<select id="logIn" resultType="com.kjm.vo.UserVO">
+		SELECT * FROM user_board WHERE writer = #{writer}
+	</select>
+	<select id="findID" resultType="String">
+		SELECT writer FROM user_board where mailaddress=#{mail}
+	</select>
+	
+	<select id="checkUserInfo" resultType="com.kjm.vo.UserVO">
+		SELECT * FROM user_board where mailaddress=#{mailAddress} and writer=#{writer}
+	</select>
+	
+	<update id="modifyUser"> 
+		UPDATE user_board SET writer=#{writer}, password=#{password} ,mailaddress=#{mailAddress} WHERE writer=#{writer} 
+	</update> 
+		<update id="modifyUser2"> 
+		UPDATE user_board SET writer=#{writer}, enabled=#{enabled} ,auth=#{auth} WHERE writer=#{writer} 
+	</update> 
+	<select id="idCount" resultType="int">
+		select count(*) from user_board where writer=#{writer}
+	</select>
+	<select id="userList" resultType="com.kjm.vo.UserVO">
+		select * from user_board
+	</select>
+	<delete id="userDelete">
+	delete from user_board where writer=#{writer}
+	</delete>
+	<update id="expUp">
+		update user_board set exp = (exp + 1) where writer = #{writer}
+		<selectKey keyProperty="exp" resultType="int">
+			SELECT exp from user_board where writer = #{writer}
+		</selectKey> 
+	</update>
+	<update id="authUp">
+		update user_board set auth="ROLE_USER2" where writer = #{writer}
+	</update>
+	
+	<select id="getUserById" parameterType="String" resultType="com.kjm.vo.CustomUserDetails">
+		SELECT * FROM user_board WHERE writer=#{writer}
+	</select>
+	
+	
+	
+	
+	<insert	id="insertFile" parameterType="hashmap">
+		insert into file_board(bno, fileno, filename, uuid, filesize) values(#{bno}, (SELECT ifnull(MAX(fileno),0) + 1
+    					 															from(SELECT * FROM file_board WHERE bno = #{bno}
+    					 															)tmp), #{filename}, #{uuid}, #{filesize})
+	</insert>
+	
+	<select id="selectFileInfo" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM file_board where bno=#{bno} and fileno=#{fileno}
+	</select>
+	
+	<select id="readFile" resultType="hashmap">
+		select * from file_board where bno = #{bno}
+	</select>
+	<delete id="deleteFile">
+		delete from file_board where bno=#{bno} and fileno = #{fileno}
+	</delete>
+	<select id="fileList" resultType="hashmap">
+		select * from file_board where bno=#{bno}
+	</select>
+	
+	<insert id="registCambodia">
+		INSERT INTO cambodia(year,id,io,product)  VALUES(#{year}, #{id}, #{io}, #{product})
+	</insert>
+	
+	<select id="getCambodiaYear" resultType="com.kjm.vo.CambodiaVO">
+		select * from cambodia where year=#{year} and io=#{io}
+	</select>
+	<update id="updateCam">
+		UPDATE cambodia SET product=#{product} WHERE year=#{year} and id=#{id}
+		
+	</update>
+	
+	<insert id="registCambodiaList" parameterType="hashmap">
+		<if test="camList.size != 0">
+			insert INTO cambodia(year,id,io,product)  VALUES
+			<foreach collection="camList" item="item" separator=",">
+				(#{item.year},#{item.id},#{item.io},#{item.product})
+			</foreach>
+		</if>
+	</insert>
+	
+	
+</mapper>
