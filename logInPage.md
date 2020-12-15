@@ -1,4 +1,4 @@
-# SpringNoticeBoard
+# LogIn Page
 
 ## 로그인 화면 - login.jsp
 
