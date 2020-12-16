@@ -244,7 +244,7 @@
 
 	<div>
 
-		<button type="submit" id="deleteBtn2" >Delete</button>
+		<button type="submit" id="deleteBtn2" >Deleted</button>
 
 		
 	</div>
