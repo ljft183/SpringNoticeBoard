@@ -3,10 +3,28 @@
 
 <script type="text/javascript">
 $(function(){
+	$("#updateBtn").hide();
 
 	$("#backBtn").on("click",function(e){
 		e.preventDefault();
 		window.location.href = '/up/myInfo.do';
+	});
+	$("#ps1").on("change",function(){
+		if($("#ps2").val()){
+			if($("#ps1").val()==$("#ps2").val())
+				$("#updateBtn").show();
+			else
+				$("#updateBtn").hide();			
+		}
+
+	});
+	$("#ps2").on("change",function(){
+		if($("#ps1").val()){
+			if($("#ps1").val()==$("#ps2").val())
+				$("#updateBtn").show();
+			else
+				$("#updateBtn").hide();
+		}
 	});
 })
 </script>
@@ -25,12 +43,12 @@ $(function(){
 				</ul>
 				<ul>
 					<li class="th">Input New Password</li>
-						<li class="td"><input type="password">
+						<li class="td"><input id="ps1" type="password">
 					</li>
 				</ul>
 				<ul>
 					<li class="th">Input Check Password</li>
-						<li class="td"><input name="password" type="password">
+						<li class="td"><input id="ps2" name="password" type="password">
 					</li>
 				</ul>
 				<ul>
@@ -41,7 +59,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="listBtn">
-			<button type="submit">Save</button>
+			<button id="updateBtn" type="submit">Save</button>
 			<button id="backBtn">Back</button>
 		</div>
 	</form>
