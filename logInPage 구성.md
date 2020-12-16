@@ -4,7 +4,7 @@
 
 ![login1](./NoticeBorder2/src/main/resources/image/logInPage/login1.PNG)
 
-## ID, 비밀번호 찾기 화면 - findInfo
+## ID, 비밀번호 찾기 화면 - findInfo.jsp
 
 ### Id를 찾는 경우 
 
