@@ -27,24 +27,15 @@
 		var formObj = $("form[name='mainForm']");
 		var formObj3 = $("form[name='mainForm23']");
 		var formObj2 = $("form[name='uploadForm']");
-		var formObj4 = $("form[name='uploadForm2']");
+
 		$("#backBtn").on("click",function(){
 			window.location.href = '/up/NoticeBoard.do';
 		});
-		
-		$("#cambodia").on("click",function(e){
-			e.preventDefault();
-			window.location.href = '/ap/cambodia.do';
-		});
+
 		// Excel Upload : List Grid
 	    $("#uploadBtn").on("click", function(){	
     		formObj2.attr("action", "/ap/getListAddExcel.do");
     		formObj2.submit();
-	    });
-		// Excel Upload : List Grid
-	    $("#uploadCambodiaBtn").on("click", function(){	
-    		formObj4.attr("action", "/ap/getListAddExcelCambodia.do");
-    		formObj4.submit();
 	    });
 
 		// Delete : List Grid
@@ -254,17 +245,10 @@
 	<div>
 
 		<button type="submit" id="deleteBtn2" >Delete</button>
-		<button id="cambodia">cambodia_excel</button>
+
 		
 	</div>
-	<div>
-		<form name="uploadForm2" method="POST" enctype="Multipart/form-data">
-			<div>
-	    		<input type="file" name="fileName2" />	
-	    		<button type="submit" id="uploadCambodiaBtn">UploadCam</button>
-	        </div>
-	    </form>
-	</div>
+
 
 </div>  
 

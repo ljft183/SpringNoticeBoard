@@ -89,11 +89,6 @@ comment 버튼을 통한 댓글 show & hide 설정
 
 ![userUpdate1](./NoticeBorder2/src/main/resources/image/userPage/userUpdate1.PNG)
 
- 비밀번호, 비밀번호 확인 일치 전 Save 버튼 hide  
+ 비밀번호, 비밀번호 확인 일치 후 Save 버튼 show  
 
 ![userUpdate2](./NoticeBorder2/src/main/resources/image/userPage/userUpdate2.PNG)
-
-
-
-
-![](./NoticeBorder2/src/main/resources/image/userPage/.PNG)
